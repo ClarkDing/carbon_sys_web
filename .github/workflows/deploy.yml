@@ -10,28 +10,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+    - name: Checkout source code
+      uses: actions/checkout@v3  # 更新到 v3 版本
 
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v1
-        with:
-          flutter-version: '3.22.1'  # 确保使用你的 Flutter 版本
+    - name: Set up Flutter
+      uses: subosito/flutter-action@v2  # 更新到 v2 版本
+      with:
+        flutter-version: 3.22.1  # 确保使用最新 Flutter 版本
 
-      - name: Install dependencies
-        run: flutter pub get
+    - name: Install dependencies
+      run: flutter pub get
 
-      - name: Build web
-        run: flutter build web
+    - name: Build web
+      run: flutter build web --release
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build/web
-
-      - name: Debug info
-        run: |
-          git config --global --add safe.directory /github/workspace
-          git --version
-          git remote -v
-          ls -la
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v4  # 更新到 v4 版本
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./build/web
