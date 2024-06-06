@@ -27,4 +27,11 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: build/web
+          publish_dir: ./build/web
+
+      - name: Debug info
+        run: |
+          git config --global --add safe.directory /github/workspace
+          git --version
+          git remote -v
+          ls -la
